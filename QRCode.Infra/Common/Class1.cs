@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QRCode.Infra.Common {
-	public class DbContext {
-		int s;
+	public class Class1 {
+		private readonly ModelContext _context;
 	}
 }

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QRCode.Infra.Common {
-	public class DbContext {
-		int s;
+namespace QRCode.Core {
+	internal class Class1 {
+		pdwadaw
 	}
 }
