@@ -18,7 +18,8 @@ namespace QRCode.Api.Controllers {
 
 		[HttpPost]
 		public async Task<IActionResult> Login(UserAccount userAccount) {
-			var user = await _context.Useraccounts.Where(x => x.Email == userAccount.Email && x.Password == userAccount.Password).SingleOrDefaultAsync();
+			var user = await _context.Useraccounts.Include(x => x.Role)
+				.Where(x => x.Email == userAccount.Email && x.Password == userAccount.Password).SingleOrDefaultAsync();
 			if (user != null) {
 
 				var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("QRCodeSuperSecretKey@345"));
@@ -33,7 +34,8 @@ namespace QRCode.Api.Controllers {
 				new Claim("cvUrl",user.CvUrl),
 				new Claim("address",user.Address),
 				new Claim("dateOfBirth",user.Dateofbirth.ToString(),ClaimValueTypes.Date),
-				new Claim("Gender",user.Gender)
+				new Claim("Gender",user.Gender),
+				new Claim("roleId",user.Role.Id.ToString(),ClaimValueTypes.Integer64)
 				};
 				var tokenOptions = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddHours(10), signingCredentials: signingCredential);
 				var token = new JwtSecurityTokenHandler();
