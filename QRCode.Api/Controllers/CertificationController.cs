@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace QRCode.Api.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ValuesController : ControllerBase {
-		
+	public class CertificationController : ControllerBase {
 	}
 }
