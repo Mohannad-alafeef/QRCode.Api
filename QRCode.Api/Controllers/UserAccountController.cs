@@ -32,7 +32,14 @@ namespace QRCode.Api.Controllers {
 			await _modelContext.SaveChangesAsync();
 			return Ok(userAccount);
 
-
 		}
+		//[HttpPost("UpdateCV")]
+		//public async Task<IActionResult> UpdateCV([FromForm,Bind("Id,CV")] UserAccount userAccount) {
+		//	var user 
+		//	if (userAccount.CV != null) {
+
+		//	}
+
+		//}
 	}
 }
