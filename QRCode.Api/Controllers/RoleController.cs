@@ -15,7 +15,7 @@ namespace QRCode.Api.Controllers {
 
 		[HttpGet]
 		public async Task<IActionResult> Get() {
-			var role = await _context.Useraccounts.Where(x => x.Role.Rolename == "User").ToListAsync();
+			var role = await _context.UserAccounts.Where(x => x.Role.RoleName == "User").ToListAsync();
 			return Ok(role);
 
 		}

@@ -33,13 +33,14 @@ builder.Services.AddAuthentication(opt => {
 
 builder.Services.AddControllers().AddJsonOptions(options => {
 	options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ModelContext>(options =>
-options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection"))
+options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging()
 );
 builder.Services.AddScoped<IImageHandler,ImageHandler>();
 

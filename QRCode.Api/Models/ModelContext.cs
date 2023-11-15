@@ -13,20 +13,19 @@ public partial class ModelContext : DbContext
     public ModelContext(DbContextOptions<ModelContext> options)
         : base(options)
     {
-
     }
 
     public virtual DbSet<Certificaton> Certificatons { get; set; }
 
-    public virtual DbSet<Cousre> Cousres { get; set; }
+    public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<UserAccount> Useraccounts { get; set; }
+    public virtual DbSet<UserAccount> UserAccounts { get; set; }
 
-    public virtual DbSet<Usercousre> Usercousres { get; set; }
+    public virtual DbSet<UserCourse> UserCourses { get; set; }
 
-
+  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,7 +35,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<Certificaton>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008507");
+            entity.HasKey(e => e.Id).HasName("SYS_C008535");
 
             entity.ToTable("CERTIFICATON");
 
@@ -48,51 +47,65 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("CERTIFICATON_URL");
-            entity.Property(e => e.DateofIssuance)
+            entity.Property(e => e.DateOfIssuance)
                 .HasColumnType("DATE")
-                .HasColumnName("DATEOF_ISSUANCE");
-            entity.Property(e => e.UsercousreId)
+                .HasColumnName("DATE_OF_ISSUANCE");
+            entity.Property(e => e.ExpDate)
+                .HasColumnType("DATE")
+                .HasColumnName("EXP_DATE");
+            entity.Property(e => e.Status)
+                .HasMaxLength(200)
+                .HasColumnName("STATUS");
+            entity.Property(e => e.Token)
+                .HasMaxLength(200)
+                .HasColumnName("TOKEN");
+            entity.Property(e => e.UserCourseId)
                 .HasColumnType("NUMBER(38)")
-                .HasColumnName("USERCOUSRE_ID");
+                .HasColumnName("USER_COURSE_ID");
 
-            entity.HasOne(d => d.Usercousre).WithMany(p => p.Certificatons)
-                .HasForeignKey(d => d.UsercousreId)
+            entity.HasOne(d => d.UserCourse).WithMany(p => p.Certificatons)
+                .HasForeignKey(d => d.UserCourseId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("USERCOUSRE_FK");
+                .HasConstraintName("FK_CERTIFICATON_USERCOURSE");
         });
 
-        modelBuilder.Entity<Cousre>(entity =>
+        modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008501");
+            entity.HasKey(e => e.Id).HasName("SYS_C008529");
 
-            entity.ToTable("COUSRE");
+            entity.ToTable("COURSE");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnType("NUMBER(38)")
                 .HasColumnName("ID");
-            entity.Property(e => e.Cousrename)
+            entity.Property(e => e.CourseName)
                 .HasMaxLength(250)
                 .IsUnicode(false)
-                .HasColumnName("COUSRENAME");
-            entity.Property(e => e.Enddate)
+                .HasColumnName("COURSE_NAME");
+            entity.Property(e => e.EndDate)
                 .HasColumnType("DATE")
-                .HasColumnName("ENDDATE");
+                .HasColumnName("END_DATE");
+            entity.Property(e => e.ImagUrl)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("IMAG_URL");
             entity.Property(e => e.Instructor)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("INSTRUCTOR");
-            entity.Property(e => e.Startdate)
+            entity.Property(e => e.StartDate)
                 .HasColumnType("DATE")
-                .HasColumnName("STARTDATE");
+                .HasColumnName("START_DATE");
             entity.Property(e => e.Time)
-                .HasColumnType("DATE")
+                .HasMaxLength(250)
+                .IsUnicode(false)
                 .HasColumnName("TIME");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008496");
+            entity.HasKey(e => e.Id).HasName("SYS_C008524");
 
             entity.ToTable("ROLE");
 
@@ -100,17 +113,17 @@ public partial class ModelContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnType("NUMBER(38)")
                 .HasColumnName("ID");
-            entity.Property(e => e.Rolename)
+            entity.Property(e => e.RoleName)
                 .HasMaxLength(250)
                 .IsUnicode(false)
-                .HasColumnName("ROLENAME");
+                .HasColumnName("ROLE_NAME");
         });
 
         modelBuilder.Entity<UserAccount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008498");
+            entity.HasKey(e => e.Id).HasName("SYS_C008526");
 
-            entity.ToTable("USERACCOUNT");
+            entity.ToTable("USER_ACCOUNT");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
@@ -124,17 +137,17 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("CV_URL");
-            entity.Property(e => e.Dateofbirth)
+            entity.Property(e => e.DateOfBirth)
                 .HasColumnType("DATE")
-                .HasColumnName("DATEOFBIRTH");
+                .HasColumnName("DATE_OF_BIRTH");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("EMAIL");
-            entity.Property(e => e.Firstname)
+            entity.Property(e => e.FirstName)
                 .HasMaxLength(250)
                 .IsUnicode(false)
-                .HasColumnName("FIRSTNAME");
+                .HasColumnName("FIRST_NAME");
             entity.Property(e => e.Gender)
                 .HasMaxLength(225)
                 .IsUnicode(false)
@@ -143,10 +156,10 @@ public partial class ModelContext : DbContext
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("IMAG_URL");
-            entity.Property(e => e.Lastname)
+            entity.Property(e => e.LastName)
                 .HasMaxLength(250)
                 .IsUnicode(false)
-                .HasColumnName("LASTNAME");
+                .HasColumnName("LAST_NAME");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -159,45 +172,45 @@ public partial class ModelContext : DbContext
                 .HasColumnType("NUMBER(38)")
                 .HasColumnName("ROLE_ID");
 
-            entity.HasOne(d => d.Role).WithMany(p => p.Useraccounts)
+            entity.HasOne(d => d.Role).WithMany(p => p.UserAccounts)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("ROLE_FK");
+                .HasConstraintName("FK_USERCOUSRE_ROLE");
         });
 
-        modelBuilder.Entity<Usercousre>(entity =>
+        modelBuilder.Entity<UserCourse>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008503");
+            entity.HasKey(e => e.Id).HasName("SYS_C008531");
 
-            entity.ToTable("USERCOUSRE");
+            entity.ToTable("USER_COURSE");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnType("NUMBER(38)")
                 .HasColumnName("ID");
-            entity.Property(e => e.CousreId)
+            entity.Property(e => e.CourseId)
                 .HasColumnType("NUMBER(38)")
-                .HasColumnName("COUSRE_ID");
+                .HasColumnName("COURSE_ID");
             entity.Property(e => e.Mark)
                 .HasColumnType("NUMBER")
                 .HasColumnName("MARK");
-            entity.Property(e => e.Stuts)
+            entity.Property(e => e.Status)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("STUTS");
-            entity.Property(e => e.UseraccountId)
+                .HasColumnName("STATUS");
+            entity.Property(e => e.UserAccountId)
                 .HasColumnType("NUMBER(38)")
-                .HasColumnName("USERACCOUNT_ID");
+                .HasColumnName("USER_ACCOUNT_ID");
 
-            entity.HasOne(d => d.Cousre).WithMany(p => p.Usercousres)
-                .HasForeignKey(d => d.CousreId)
+            entity.HasOne(d => d.Course).WithMany(p => p.UserCourses)
+                .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("COUSRE_FK");
+                .HasConstraintName("FK_USERCOURSE_COURSE");
 
-            entity.HasOne(d => d.Useraccount).WithMany(p => p.Usercousres)
-                .HasForeignKey(d => d.UseraccountId)
+            entity.HasOne(d => d.UserAccount).WithMany(p => p.UserCourses)
+                .HasForeignKey(d => d.UserAccountId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("USERACCOUNT_FK");
+                .HasConstraintName("FK_USERCOURSE_USERACCOUNT");
         });
 
         OnModelCreatingPartial(modelBuilder);

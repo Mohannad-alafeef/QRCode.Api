@@ -7,7 +7,7 @@ public partial class Role
 {
     public decimal Id { get; set; }
 
-    public string? Rolename { get; set; }
+    public string? RoleName { get; set; }
 
-    public virtual ICollection<UserAccount> Useraccounts { get; set; } = new List<UserAccount>();
+    public virtual ICollection<UserAccount> UserAccounts { get; set; } = new List<UserAccount>();
 }
