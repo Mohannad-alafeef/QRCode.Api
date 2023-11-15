@@ -18,7 +18,7 @@ namespace QRCode.Api.Controllers {
 
 		[HttpPost]
 		public async Task<IActionResult> Login(UserAccount userAccount) {
-			var user = await _context.Useraccounts.Include(x => x.Role)
+			var user = await _context.UserAccounts.Include(x => x.Role)
 				.Where(x => x.Email == userAccount.Email && x.Password == userAccount.Password).SingleOrDefaultAsync();
 			if (user != null) {
 
@@ -26,14 +26,14 @@ namespace QRCode.Api.Controllers {
 				var signingCredential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 				var claims = new List<Claim> {
-				new Claim("firstName",user.Firstname),
-				new Claim("lastName",user.Lastname),
+				new Claim("firstName",user.FirstName),
+				new Claim("lastName",user.LastName),
 				new Claim("email",user.Email),
 				new Claim("phone",user.Phone),
 				new Claim("imageUrl",user.ImagUrl),
 				new Claim("cvUrl",user.CvUrl),
 				new Claim("address",user.Address),
-				new Claim("dateOfBirth",user.Dateofbirth.ToString(),ClaimValueTypes.Date),
+				new Claim("dateOfBirth",user.DateOfBirth.ToString(),ClaimValueTypes.Date),
 				new Claim("Gender",user.Gender),
 				new Claim("roleId",user.Role.Id.ToString(),ClaimValueTypes.Integer64)
 				};

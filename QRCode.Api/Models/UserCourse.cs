@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace QRCode.Api.Models;
 
-public partial class Usercousre
+public partial class UserCourse
 {
     public decimal Id { get; set; }
 
-    public decimal? CousreId { get; set; }
+    public decimal? CourseId { get; set; }
 
-    public decimal? UseraccountId { get; set; }
+    public decimal? UserAccountId { get; set; }
 
-    public string? Stuts { get; set; }
+    public string? Status { get; set; }
 
     public decimal? Mark { get; set; }
 
     public virtual ICollection<Certificaton> Certificatons { get; set; } = new List<Certificaton>();
 
-    public virtual Cousre? Cousre { get; set; }
+    public virtual Course? Course { get; set; }
 
-    public virtual UserAccount? Useraccount { get; set; }
+    public virtual UserAccount? UserAccount { get; set; }
 }
