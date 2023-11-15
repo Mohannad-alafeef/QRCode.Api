@@ -2,15 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QRCode.Api.Models;
+using QRCode.Api.Services;
 
 namespace QRCode.Api.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class CourseController : ControllerBase {
 		private readonly ModelContext _context;
+		private readonly IImageHandler _imageHandler;
 
-		public CourseController(ModelContext context) {
+		public CourseController(ModelContext context, IImageHandler imageHandler) {
 			_context = context;
+			_imageHandler = imageHandler;
 		}
 
 		[HttpGet]
@@ -29,16 +32,23 @@ namespace QRCode.Api.Controllers {
 
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([Bind("CousreName,StartDate,EndDate,Time,Instructor,Image")]Course course) {
-			await _context.AddAsync(course);
-			await _context.SaveChangesAsync();
+		public async Task<IActionResult> Create([FromForm, Bind("CourseName,StartDate,EndDate,Time,Instructor,Image")] Course course) {
+			if (course.Image != null) {
+				var imageUrl = await _imageHandler.UploadFile(course.Image);
+				course.ImagUrl = imageUrl;
+				await _context.AddAsync(course);
+				await _context.SaveChangesAsync();
 
-			return Ok(course);
+				return Ok(course);
+			}
+			else {
+				return BadRequest();
+			}
 
 		}
 		[HttpPut("Update")]
-		public async Task<IActionResult> Update([Bind("Id,CousreName,StartDate,EndDate,Time,Instructor,ImageUrl")]Course course) {
-			
+		public async Task<IActionResult> Update([Bind("Id,CourseName,StartDate,EndDate,Time,Instructor,ImageUrl")] Course course) {
+
 			_context.Update(course);
 			await _context.SaveChangesAsync();
 

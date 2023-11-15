@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QRCode.Api.Models;
 using QRCode.Api.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace QRCode.Api.Controllers {
 	[Route("api/[controller]")]
@@ -17,8 +18,12 @@ namespace QRCode.Api.Controllers {
 		}
 
 		[HttpPost]
+		
 		public async Task<IActionResult> Create([FromForm, Bind("RoleId,FirstName,LastName,Email,Password,Image,CV,Phone,Gender,Address,DateOfBirth")] UserAccount userAccount) {
 
+			if(!ModelState.IsValid) {
+				BadRequest("Missing Data");
+			}
 			if (userAccount.Image != null) {
 				var imageUrl = await _imageHandler.UploadFile(userAccount.Image);
 				userAccount.ImagUrl = imageUrl;

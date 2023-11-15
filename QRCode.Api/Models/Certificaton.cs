@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QRCode.Api.Models;
 
@@ -18,6 +19,8 @@ public partial class Certificaton
     public DateTime? ExpDate { get; set; }
 
     public string? Status { get; set; }
+    [NotMapped]
+    public IFormFile? Image { get; set; }
 
     public virtual UserCourse? UserCourse { get; set; }
 }
