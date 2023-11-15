@@ -30,6 +30,14 @@ namespace QRCode.Api.Controllers {
 
 			return Ok(certi);
 		}
+		[HttpGet("ByUserCourseId/{id}")]
+		public async Task<IActionResult> GetByUserCourseId(decimal id) {
+			var certi = await _context.Certificatons.Where(x=>x.UserCourseId == id).SingleOrDefaultAsync();
+			if (certi == null) {
+				return NotFound();
+			}
+			return Ok(certi);
+		}
 		[HttpPost]
 		public async Task<IActionResult> Create([FromForm, Bind("UserCourseId,DateOfIssuance,ExpDate,Status,Image")] Certificaton certificaton) {
 			if (certificaton.Image != null) {
