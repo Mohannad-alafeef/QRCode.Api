@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QRCode.Api.Models;
 
@@ -18,6 +19,8 @@ public partial class Course
     public string? ImagUrl { get; set; }
 
     public string? Instructor { get; set; }
+    [NotMapped]
+    public IFormFile? Image { get; set; }
 
     public virtual ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
 }

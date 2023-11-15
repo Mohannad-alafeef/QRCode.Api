@@ -35,7 +35,7 @@ namespace QRCode.Api.Controllers {
 
 		}
 		[HttpPut("UpdateInfo")]
-		public async Task<IActionResult> UpdateInfo([FromForm, Bind("Id,FirstName,LastName,Email,Password,Phone,Gender,Address,DateOfBirth")] UserAccount userAccount) {
+		public async Task<IActionResult> UpdateInfo([FromForm, Bind("Id,FirstName,LastName,Email,Password,Phone,Gender,Address,DateOfBirth,ImagUrl,CvUrl")] UserAccount userAccount) {
 
 			_modelContext.Update(userAccount);
 			await _modelContext.SaveChangesAsync();

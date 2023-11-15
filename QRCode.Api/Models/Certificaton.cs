@@ -15,5 +15,9 @@ public partial class Certificaton
 
     public string? Token { get; set; }
 
+    public DateTime? ExpDate { get; set; }
+
+    public string? Status { get; set; }
+
     public virtual UserCourse? UserCourse { get; set; }
 }

@@ -25,7 +25,7 @@ public partial class ModelContext : DbContext
 
     public virtual DbSet<UserCourse> UserCourses { get; set; }
 
-
+  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,7 +35,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<Certificaton>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008521");
+            entity.HasKey(e => e.Id).HasName("SYS_C008535");
 
             entity.ToTable("CERTIFICATON");
 
@@ -50,6 +50,12 @@ public partial class ModelContext : DbContext
             entity.Property(e => e.DateOfIssuance)
                 .HasColumnType("DATE")
                 .HasColumnName("DATE_OF_ISSUANCE");
+            entity.Property(e => e.ExpDate)
+                .HasColumnType("DATE")
+                .HasColumnName("EXP_DATE");
+            entity.Property(e => e.Status)
+                .HasMaxLength(200)
+                .HasColumnName("STATUS");
             entity.Property(e => e.Token)
                 .HasMaxLength(200)
                 .HasColumnName("TOKEN");
@@ -65,7 +71,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008515");
+            entity.HasKey(e => e.Id).HasName("SYS_C008529");
 
             entity.ToTable("COURSE");
 
@@ -99,7 +105,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008510");
+            entity.HasKey(e => e.Id).HasName("SYS_C008524");
 
             entity.ToTable("ROLE");
 
@@ -115,7 +121,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<UserAccount>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008512");
+            entity.HasKey(e => e.Id).HasName("SYS_C008526");
 
             entity.ToTable("USER_ACCOUNT");
 
@@ -174,7 +180,7 @@ public partial class ModelContext : DbContext
 
         modelBuilder.Entity<UserCourse>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("SYS_C008517");
+            entity.HasKey(e => e.Id).HasName("SYS_C008531");
 
             entity.ToTable("USER_COURSE");
 

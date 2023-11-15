@@ -29,7 +29,7 @@ namespace QRCode.Api.Controllers {
 
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([Bind("CousreName,StartDate,EndDate,Time,Instructor")]Course course) {
+		public async Task<IActionResult> Create([Bind("CousreName,StartDate,EndDate,Time,Instructor,Image")]Course course) {
 			await _context.AddAsync(course);
 			await _context.SaveChangesAsync();
 
@@ -37,7 +37,7 @@ namespace QRCode.Api.Controllers {
 
 		}
 		[HttpPut("Update")]
-		public async Task<IActionResult> Update([Bind("Id,CousreName,StartDate,EndDate,Time,Instructor")]Course course) {
+		public async Task<IActionResult> Update([Bind("Id,CousreName,StartDate,EndDate,Time,Instructor,ImageUrl")]Course course) {
 			
 			_context.Update(course);
 			await _context.SaveChangesAsync();
