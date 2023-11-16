@@ -16,9 +16,13 @@ namespace QRCode.Api.Controllers {
 			_imageHandler = imageHandler;
 			_modelContext = modelContext;
 		}
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetAll(decimal id) {
+			var students = await _modelContext.UserAccounts.Where(x=>x.RoleId == id).ToListAsync();
+			return Ok(students);
 
+		}
 		[HttpPost]
-		
 		public async Task<IActionResult> Create([FromForm, Bind("RoleId,FirstName,LastName,Email,Password,Image,CV,Phone,Gender,Address,DateOfBirth")] UserAccount userAccount) {
 
 			if(!ModelState.IsValid) {
