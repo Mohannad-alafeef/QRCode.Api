@@ -26,6 +26,7 @@ namespace QRCode.Api.Controllers {
 				var signingCredential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 				var claims = new List<Claim> {
+				new Claim("Id",user.Id.ToString(),ClaimValueTypes.Integer64),
 				new Claim("firstName",user.FirstName),
 				new Claim("lastName",user.LastName),
 				new Claim("email",user.Email),
