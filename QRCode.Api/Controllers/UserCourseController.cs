@@ -54,6 +54,20 @@ namespace QRCode.Api.Controllers {
 				return BadRequest();
 			}
 		}
+		[HttpPut("Update")]
+		public async Task<IActionResult> Update([Bind("Id,Mark,Status")] UserCourse usercourse) {
+			var course = await _context.UserCourses.AsNoTracking().Where(x=>x.Id==usercourse.Id).SingleOrDefaultAsync();
+			if (course != null) {
+				course.Mark = usercourse.Mark;
+				course.Status = usercourse.Status;
+				 _context.Update(course);
+				await _context.SaveChangesAsync();
+				return Ok(course);
+			}
+			else {
+				return BadRequest();
+			}
+		}
 		[HttpPut("UpdateStatus")]
 		public async Task<IActionResult> UpdateStatus([Bind("Id,Status")] UserCourse usercourse) {
 			var course = await _context.UserCourses.AsNoTracking().Where(x => x.Id == usercourse.Id).SingleOrDefaultAsync();

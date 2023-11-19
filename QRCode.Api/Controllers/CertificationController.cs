@@ -49,7 +49,7 @@ namespace QRCode.Api.Controllers {
 
 			}
 			else {
-				return BadRequest();
+				return BadRequest("no file");
 			}
 
 
