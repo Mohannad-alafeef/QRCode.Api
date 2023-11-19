@@ -26,7 +26,7 @@ namespace QRCode.Api.Controllers {
 				var signingCredential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 				var claims = new List<Claim> {
-				new Claim("Id",user.Id.ToString(),ClaimValueTypes.Integer64),
+				new Claim("id",user.Id.ToString(),ClaimValueTypes.Integer64),
 				new Claim("firstName",user.FirstName),
 				new Claim("lastName",user.LastName),
 				new Claim("email",user.Email),
@@ -35,7 +35,7 @@ namespace QRCode.Api.Controllers {
 				new Claim("cvUrl",user.CvUrl),
 				new Claim("address",user.Address),
 				new Claim("dateOfBirth",user.DateOfBirth.ToString(),ClaimValueTypes.Date),
-				new Claim("Gender",user.Gender),
+				new Claim("gender",user.Gender),
 				new Claim("roleId",user.Role.Id.ToString(),ClaimValueTypes.Integer64)
 				};
 				var tokenOptions = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddHours(10), signingCredentials: signingCredential);
