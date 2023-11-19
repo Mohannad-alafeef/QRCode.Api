@@ -98,5 +98,12 @@ namespace QRCode.Api.Controllers {
 			return Ok(user);
 
 		}
-	}
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> User(decimal id)
+        {
+            var user = await _modelContext.UserAccounts.Where(x => x.Id == id).ToListAsync();
+            return Ok(user);
+
+        }
+    }
 }
