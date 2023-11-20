@@ -94,7 +94,7 @@ namespace QRCode.Api.Controllers {
 		}
 		[HttpGet("UserCourses/{id}")]
 		public async Task<IActionResult> UserCourses(decimal id) {
-			var user = await _modelContext.UserCourses.Where(x=>x.UserAccountId == id).Include(x=>x.Course).ToListAsync();
+			var user = await _modelContext.UserCourses.Where(x=>x.UserAccountId == id).Include(x=>x.Certificatons).Include(x=>x.Course).ToListAsync();
 			return Ok(user);
 
 		}
