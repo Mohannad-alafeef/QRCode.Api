@@ -39,7 +39,7 @@ namespace QRCode.Api.Controllers {
 			return Ok(certi);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create([FromForm, Bind("UserCourseId,DateOfIssuance,ExpDate,Status,Image")] Certificaton certificaton) {
+		public async Task<IActionResult> Create([FromForm, Bind("UserCourseId,DateOfIssuance,ExpDate,Status,Image,Token")] Certificaton certificaton) {
 			if (certificaton.Image != null) {
 				var certiUrl = await _imageHandler.UploadFile(certificaton.Image);
 				certificaton.CertificatonUrl = certiUrl;
